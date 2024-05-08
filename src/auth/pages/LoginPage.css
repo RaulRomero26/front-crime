@@ -1,0 +1,84 @@
+/* Establece el tamaño del contenedor principal */
+.container-fondo {
+
+    height: 100vh;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden !important;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Establece el estilo del contenedor del formulario */
+  .container-login {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    margin: 20px;
+  }
+  
+  /* Establece el estilo del texto de inicio de sesión */
+  .text-login {
+    color: #000;
+    margin-bottom: 20px;
+    text-align: center; /* Centra el texto horizontalmente */
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el ancho total incluya el relleno y el borde */
+  }
+  
+  /* Establece el estilo del botón de enviar */
+  .btnSubmit {
+    background-color: #f39c12;
+    color: #000;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Agrega transición al color de fondo y a la transformación */
+    font-weight: bold; /* Añade negrita al texto del botón */
+    margin-top: 20px; /* Añade margen superior al botón */
+  }
+  
+  .btnSubmit:hover {
+    background-color: #e67e22; /* Cambia el color de fondo al pasar el cursor */
+    transform: scale(1.05); /* Agranda ligeramente el botón */
+  }
+  
+  /* Establece el estilo del logo */
+  .logo {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    margin-left: 170px;
+  }
+  
+  /* Media Query para dispositivos móviles */
+  @media screen and (max-width: 600px) {
+    .container-login {
+      padding: 20px; /* Ajusta el relleno del formulario para dispositivos móviles */
+      max-width: 90%; /* Ajusta el ancho máximo del formulario para dispositivos móviles */
+      margin: 10px; /* Ajusta el margen derecho e izquierdo del formulario para dispositivos móviles */
+    }
+  
+    .logo {
+      margin-left: 0; /* Elimina el margen izquierdo del logo en dispositivos móviles */
+    }
+  
+    .btnSubmit {
+      margin-top: 15px;
+    }
+  
+  }
+  
