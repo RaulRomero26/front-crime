@@ -15,7 +15,7 @@ export const generarQR = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formdata),
+      body: formdata,
     });
     return data;
   } catch (error) {
