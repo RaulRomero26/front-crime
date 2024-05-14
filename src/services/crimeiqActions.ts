@@ -1,5 +1,6 @@
 import { crimeiqApi } from "../api/crimeiqApi";
 
+
 interface GenerarQrResponse {
   ok: boolean;
   data: any;
@@ -23,4 +24,20 @@ export const generarQR = async (
   }
 
   return undefined; // Add return statement here
+};
+
+export const useGetAllQR = async ({ perPage }:any) => {
+
+  try {
+    console.log('ACCION DATOS LIMIT:',perPage)
+    const params = new URLSearchParams();
+    params.append('page',perPage.toString())
+    const {data} = await crimeiqApi.get(`/all-qr`,{params});
+    console.log('DATA DE ACTIONS',data)
+    return data;
+  } catch (error) {
+    console.log(error)
+    return {};
+  }
+
 };

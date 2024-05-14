@@ -1,4 +1,4 @@
-import { GenerateQR } from "../../components";
+import { GenerateQR, GenerateTable, QRTable } from "../../components";
 
 export const QrPage = () => {
   return (
@@ -63,7 +63,7 @@ export const QrPage = () => {
                 aria-labelledby="profile-tab"
                 tabIndex={0}
               >
-                ...
+                <QRTable/>
               </div>
             </div>
           </div>
