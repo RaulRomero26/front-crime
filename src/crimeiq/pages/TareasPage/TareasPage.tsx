@@ -1,13 +1,13 @@
-import { GenerateQR, QRTable } from "../../components";
+import { CrearTarea, TareasTable } from "../../components";
 
-export const QrPage = () => {
+export const TareasPage = () => {
   return (
     <>
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-12">
                     <h2 className="text-center titulo">
-                    ADMINISTRAR <span className="resaltar">QR</span>
+                    ADMINISTRAR <span className="resaltar">TAREAS</span>
                     </h2>
                 </div>
             </div>
@@ -28,7 +28,7 @@ export const QrPage = () => {
                   aria-controls="home-tab-pane"
                   aria-selected="true"
                 >
-                  CREAR QR
+                  ASIGNAR TAREAS
                 </button>
               </li>
               <li className="nav-item" role="presentation">
@@ -42,7 +42,7 @@ export const QrPage = () => {
                   aria-controls="profile-tab-pane"
                   aria-selected="false"
                 >
-                  QR GENERADOS
+                  TAREAS ASIGNADAS
                 </button>
               </li>
             </ul>
@@ -54,7 +54,7 @@ export const QrPage = () => {
                 aria-labelledby="home-tab"
                 tabIndex={0}
               >
-                <GenerateQR />
+               <CrearTarea/>
               </div>
               <div
                 className="tab-pane fade"
@@ -63,7 +63,7 @@ export const QrPage = () => {
                 aria-labelledby="profile-tab"
                 tabIndex={0}
               >
-                <QRTable/>
+                <TareasTable/>
               </div>
             </div>
           </div>
@@ -73,4 +73,4 @@ export const QrPage = () => {
   );
 };
 
-export default QrPage;
+export default TareasPage;

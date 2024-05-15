@@ -1,0 +1,124 @@
+
+.btn1 {
+    background-color: rgb(248, 248, 248);
+    color: black; /* Cambié el color del texto a negro */
+    font-weight: bold;
+    width: 150px; /* Ancho del botón */
+    height: 150px; /* Alto del botón */
+    background-size: contain; /* Ajusta el tamaño de la imagen para que se ajuste dentro del botón */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+  
+  .btn1:active {
+    transform: translateY(2px); /* Mueve el botón hacia abajo cuando está presionado */
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container h2 {
+    color: #333;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .form-container input[type="text"],
+  .form-container input[type="datetime-local"],
+  .form-container select,
+  .form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  
+  .form-container input[type="text"],
+  .form-container textarea {
+    width: 100%; /* Ajuste para dispositivos de pantalla pequeña */
+  }
+  
+  /* Estilos para el mensaje de éxito y el botón de descarga */
+  .success-message-container {
+    text-align: center;
+    margin: 20px auto;
+  }
+  
+  .success-message-container p {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .success-message-container a {
+    background-color: blue;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    width: 80%; /* Ajuste para dispositivos de pantalla pequeña */
+    max-width: 400px; /* Ancho máximo para evitar que el botón se estire demasiado en pantallas grandes */
+    margin: 0 auto;
+  }
+  
+  /* Estilos para el pie de página */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    font-size: 10px;
+  }
+  
+  .footer img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  /* Estilo para el botón "Cerrar" */
+  .form-container button[type="button"] {
+    background-color: red;
+    font-weight: bold;
+  }
+  
+  /* Estilo para los botones "Crear" y "Cerrar" */
+  .form-container button[type="submit"],
+  .form-container button[type="button"] {
+    font-weight: bold;
+  }
+  
+  
+  .invalid-form {
+    color: #bf1650;
+  }
+  
+  .invalid-form::before {
+    display: inline;
+    content: "⚠ ";
+  }
