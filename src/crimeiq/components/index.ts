@@ -1,6 +1,3 @@
 export * from './CustomNavbar/CustomNavbar'
 export * from './Forms/GenerarQR/GenerarQR'
-export * from './DefinitionTable/DefinitionTable'
-export * from './GenerateTable/GenerateTable'
-export * from './Table/Table'
 export * from './QRTable/QRTable'
