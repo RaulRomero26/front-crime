@@ -57,3 +57,19 @@ export const useGetAllTareas = async ({ perPage }:any) => {
   }
 
 };
+
+export const useGetAllReportesIncidencia = async ({ perPage }:any) => {
+
+  try {
+    console.log('ACCION DATOS LIMIT:',perPage)
+    const params = new URLSearchParams();
+    params.append('page',perPage.toString())
+    const {data} = await crimeiqApi.get(`/recorridos`,{params});
+    console.log('DATA DE ACTIONS',data)
+    return data;
+  } catch (error) {
+    console.log(error)
+    return {};
+  }
+
+};

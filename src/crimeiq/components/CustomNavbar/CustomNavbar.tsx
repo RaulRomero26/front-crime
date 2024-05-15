@@ -11,6 +11,7 @@ import { useAuthStore } from '../../../hooks/auth/useAuthStore';
 
 import Logo1 from "../../../assets/2.png";
 import './CustomNavbar.css'
+import ReportesIncidenciaPage from '../../pages/ReportesIncidenciaPage/ReportesIncidenciaPage';
 
 export const CustomNavbar = () => {
   const [expanded, setExpanded] = useState(false);
@@ -49,8 +50,8 @@ export const CustomNavbar = () => {
           <Routes>
             <Route path={'qr'} element={<QrPage/>}/>
             <Route path='tareas' element={<TareasPage/>}/>
-            {/* <Route path={'reportes'} element={<ReportePage/>}/>
-            <Route path={'tareas'} element={<TareasPage/>}/>
+             <Route path={'reportes'} element={<ReportesIncidenciaPage/>}/>
+            {/*<Route path={'tareas'} element={<TareasPage/>}/>
             <Route path={'catalogos'} element={<CatalogosPage/>}/>
             <Route path={'usuarios'} element={<UsuariosPage/>}/> */}
             <Route path={'*'} element={<QrPage/>}/>

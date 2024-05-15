@@ -1,7 +1,7 @@
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
 import { useMemo, useState } from "react";
-import { useGetAllTareas } from "../../hooks/Tareas/useGetAllTareas";
+import { useGetAllReportesIncidencia } from "../../hooks/ReportesIncidencia/useGetAllReportesIncidencia";
 
 
 interface DataRow {
@@ -18,7 +18,7 @@ interface SubHeaderFilter {
   setter: (value: string) => void;
   component: React.FC<any>;
 }
-export const TareasTable = () => {
+export const ReportesIncidenciaTable = () => {
 
   const [filterTextTitulo, setFilterTextTitulo] = useState('');
   const [filterTextDescripcion, setFilterTextDescripcion] = useState('');
@@ -29,10 +29,10 @@ export const TareasTable = () => {
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
 
-  const { isLoading, tareas, isFetching } = useGetAllTareas({perPageReq: 1000});
+  const { isLoading, reportes, isFetching } = useGetAllReportesIncidencia({perPageReq: 1000});
 
   if(!isFetching && !isLoading) {
-    console.log(tareas.data);//Asi accedemos a la data que nos regresa el endpoint
+    console.log(reportes.data);//Asi accedemos a la data que nos regresa el endpoint
   }
 
   const filters: Record<string, SubHeaderFilter> = {
@@ -70,8 +70,8 @@ export const TareasTable = () => {
   
   let filteredItems: DataRow[] = [];
   
-  if (tareas.data && tareas.data[0]) {
-    filteredItems = tareas.data.filter((item: DataRow) =>
+  if (reportes.data && reportes.data[0]) {
+    filteredItems = reportes.data.filter((item: DataRow) =>
       (Object.keys(filters) as Array<keyof DataRow>).every(key =>
         filters[key].value === '' || String(item[key]).toLowerCase().includes(filters[key].value.toLowerCase())
       )
@@ -141,7 +141,7 @@ const subHeaderComponent = useMemo(() => {
     (!isFetching && !isLoading) && (
     
         <DataTable
-        title="Tareas Asignadas" 
+        title="Reportes de Incidencia" 
           columns={columns} 
           data={filteredItems} 
           pagination
