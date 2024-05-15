@@ -28,7 +28,7 @@ export const ReportesIncidenciaPage = () => {
                   aria-controls="home-tab-pane"
                   aria-selected="true"
                 >
-                  REPORTES INCIDENCIA
+                  REPORTES RECORRIDOS
                 </button>
               </li>
             </ul>
