@@ -5,12 +5,13 @@ import { useGetAllReportesIncidencia } from "../../hooks/ReportesIncidencia/useG
 
 
 interface DataRow {
-	titulo: string;
-    descripcion: string;
-    fecha_hora_vencimiento: string;
-    estado: string;
-    no_servicio: string;
-    usu_asignado: string;
+  puntoVigilancia: string;
+  ubicacion: string;
+  observaciones: string;
+  nombreArchivo: string;
+  fechaEscaneo: string;
+  horaEscaneo: string;
+  usuario: string;
 }
 
 interface SubHeaderFilter {
@@ -20,12 +21,13 @@ interface SubHeaderFilter {
 }
 export const ReportesIncidenciaTable = () => {
 
-  const [filterTextTitulo, setFilterTextTitulo] = useState('');
-  const [filterTextDescripcion, setFilterTextDescripcion] = useState('');
-  const [filterTextFechaHoraVencimiento, setFilterTextFechaHoraVencimiento] = useState('');
-  const [filterTextEstado, setFilterTextEstado] = useState('');
-  const [filterTextServicio, setFilterTextServicio] = useState('');
-  const [filterTextUsuarioAsignado, setFilterTextUsuarioAsignado] = useState('');
+  const [filterTextPuntoVigilancia, setFilterTextPuntoVigilancia] = useState('');
+  const [filterTextUbicacion, setFilterTextUbicacion] = useState('');
+  const [filterTextObservaciones, setFilterTextObservaciones] = useState('');
+  const [filterTextNombreArchivo, setFilterTextNombreArchivo] = useState('');
+  const [filterTextFechaEscaneo, setFilterTextFechaEscaneo] = useState('');
+  const [filterTextHoraEscaneo, setFilterTextHoraEscaneo] = useState('');
+  const [filterTextUsuario, setFilterTextUsuario] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
 
@@ -36,41 +38,46 @@ export const ReportesIncidenciaTable = () => {
   }
 
   const filters: Record<string, SubHeaderFilter> = {
-    titulo: {
-      value: filterTextTitulo,
-      setter: setFilterTextTitulo,
+    puntoVigilancia: {
+      value: filterTextPuntoVigilancia,
+      setter: setFilterTextPuntoVigilancia,
       component: TextFilterComponent,
     },
-    descripcion: {
-      value: filterTextDescripcion,
-      setter: setFilterTextDescripcion,
+    ubicacion: {
+      value: filterTextUbicacion,
+      setter: setFilterTextUbicacion,
       component: TextFilterComponent,
     },
-    fecha_hora_vencimiento: {
-      value: filterTextFechaHoraVencimiento,
-      setter: setFilterTextFechaHoraVencimiento,
+    observaciones: {
+      value: filterTextObservaciones,
+      setter: setFilterTextObservaciones,
       component: TextFilterComponent,
     },
-    estado: {
-      value: filterTextEstado,
-      setter: setFilterTextEstado,
+    nombreArchivo: {
+      value: filterTextNombreArchivo,
+      setter: setFilterTextNombreArchivo,
       component: TextFilterComponent,
     },
-    no_servicio: {
-      value: filterTextServicio,
-      setter: setFilterTextServicio,
+    fechaEscaneo: {
+      value: filterTextFechaEscaneo,
+      setter: setFilterTextFechaEscaneo,
       component: TextFilterComponent,
     },
-    usu_asignado: {
-        value: filterTextUsuarioAsignado,
-        setter: setFilterTextUsuarioAsignado,
+    horaEscaneo: {
+        value: filterTextHoraEscaneo,
+        setter: setFilterTextHoraEscaneo,
         component: TextFilterComponent,
-      }       
+      },     
+    usuario: {
+      value: filterTextUsuario,
+      setter: setFilterTextUsuario,
+      component: TextFilterComponent,
+    }       
   };
   
   let filteredItems: DataRow[] = [];
   
-  if (reportes.data && reportes.data[0]) {
+  if (reportes.data ) {
     filteredItems = reportes.data.filter((item: DataRow) =>
       (Object.keys(filters) as Array<keyof DataRow>).every(key =>
         filters[key].value === '' || String(item[key]).toLowerCase().includes(filters[key].value.toLowerCase())
@@ -108,40 +115,44 @@ const subHeaderComponent = useMemo(() => {
 
     </>
   );
-}, [filterTextTitulo, filterTextDescripcion, filterTextFechaHoraVencimiento, filterTextEstado, filterTextServicio, filterTextUsuarioAsignado, resetPaginationToggle]);
+}, [filterTextPuntoVigilancia, filterTextUbicacion, filterTextObservaciones, filterTextNombreArchivo, filterTextFechaEscaneo, filterTextHoraEscaneo, filterTextUsuario, resetPaginationToggle]);
 
   const columns: TableColumn<DataRow>[] = [
     {
-      name: 'Titulo',
-      selector: (row: DataRow) => row.titulo,
+      name: 'Punto de Vigilancia',
+      selector: (row: DataRow) => row.puntoVigilancia,
     },
     {
-      name: 'Descripción',
-      selector: (row: DataRow) => row.descripcion,
+      name: 'Ubicación',
+      selector: (row: DataRow) => row.ubicacion,
     },
     {
-      name: 'Fecha Hora Vencimiento',
-      selector: (row: DataRow) => row.fecha_hora_vencimiento,
+      name: 'Observaciones',
+      selector: (row: DataRow) => row.observaciones,
     },
     {
-      name: 'Estado',
-      selector: (row: DataRow) => row.estado,
+      name: 'Nombre Archivo',
+      selector: (row: DataRow) => row.nombreArchivo,
     },
     {
-      name: 'No. Servicio',
-      selector: (row: DataRow) => row.no_servicio,
+      name: 'Fecha Escaneo',
+      selector: (row: DataRow) => row.fechaEscaneo,
     },
     {
-      name: 'Usuario Asignado', 
-      selector: (row: DataRow) => row.usu_asignado,
+      name: 'Hora Escaneo',
+      selector: (row: DataRow) => row.horaEscaneo,
     },
+    {
+      name: 'Usuario',
+      selector: (row: DataRow) => row.usuario,
+    }
   ];
 
   return (
     (!isFetching && !isLoading) && (
     
         <DataTable
-        title="Reportes de Incidencia" 
+        title="Reportes Escaneo de QR's" 
           columns={columns} 
           data={filteredItems} 
           pagination
