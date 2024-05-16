@@ -2,7 +2,13 @@ import { crimeiqApi } from "../api/crimeiqApi";
 
 
 interface GenerarQrResponse {
-  ok: boolean;
+  success: boolean;
+  data: any;
+  // Agrega aquí otras propiedades que pueda tener la respuesta
+}
+
+interface GenerarTareaResponse {
+  success: boolean;
   data: any;
   // Agrega aquí otras propiedades que pueda tener la respuesta
 }
@@ -56,6 +62,26 @@ export const useGetAllTareas = async ({ perPage }:any) => {
     return {};
   }
 
+};
+
+export const crearTarea = async (
+  formdata: any
+): Promise<GenerarTareaResponse | undefined> => {
+  try {
+    console.log(formdata)
+    const { data } = await crimeiqApi.post("/crear_tarea", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formdata,
+    });
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+
+  return undefined; // Add return statement here
 };
 
 export const useGetAllReportesIncidencia = async ({ perPage }:any) => {

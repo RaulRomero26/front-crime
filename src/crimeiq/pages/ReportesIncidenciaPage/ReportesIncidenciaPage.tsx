@@ -59,7 +59,7 @@ export const ReportesIncidenciaPage = () => {
               </div>
             <div className="tab-content" id="reportesAlertas">
               <div
-                className="tab-pane fade show active"
+                className="tab-pane fade"
                 id="repoalerta-tab-pane"
                 role="tabpanel"
                 aria-labelledby="repoalerta-tab"

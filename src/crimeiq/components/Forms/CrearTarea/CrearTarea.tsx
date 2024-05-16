@@ -3,20 +3,43 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 import "./CrearTarea.css";
-import { useCrearQR } from "../../../hooks/QR/useCrearQR";
+import { useEffect,useState } from "react";
+import { crimeiqApi } from "../../../../api/crimeiqApi";
+import { useCrearTarea } from "../../../hooks/Tareas/useCrearTarea";
 
 export const CrearTarea = () => {
+
+  const [catalogoUsuarios, setCatalogoUsuarios] = useState<any[]>([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
+  useEffect(() => {
+    const getCatalogoUsuarios = async () => {
+      try {
+        const response = await crimeiqApi.post("/catalogo_usuarios");
+        console.log("Catalogo de usuarios:", response.data);
+        setCatalogoUsuarios(response.data.data.map((usuario: any) => ({ username: usuario.username, id: usuario._id.$oid })));
+        console.log(catalogoUsuarios);
+      } catch (error) {
+        console.log("Error al obtener el catalogo de usuarios:", error);
+      }
+    };
+    getCatalogoUsuarios();
+  }, []);
 
-  const qrMutation = useCrearQR();
+
+
+  const tareaMutation = useCrearTarea();
   const onSubmit = (data: any) => {
     console.log("Datos del formulario:", data);
-    qrMutation.mutate(data);
+    data.estado="Pendiente";
+    tareaMutation.mutate(data);
   }
+
 
   return (
     <>
@@ -35,9 +58,9 @@ export const CrearTarea = () => {
                     })}
                 >
                     <option value="">Seleccionar usuario</option>
-                    <option value="usuario1">Usuario 1</option>
-                    <option value="usuario2">Usuario 2</option>
-                    <option value="usuario3">Usuario 3</option>
+                    {catalogoUsuarios.map((usuario) => (
+                      <option key={usuario.id} value={usuario.username}>{usuario.username}</option>
+                    ))}
                 </select>
                 <ErrorMessage
                   errors={errors}
