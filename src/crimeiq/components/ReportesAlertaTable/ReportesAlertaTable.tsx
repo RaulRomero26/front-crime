@@ -1,7 +1,6 @@
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
 import { useMemo, useState } from "react";
-import { useGetAllReportesIncidencia } from "../../hooks/ReportesIncidencia/useGetAllReportesIncidencia";
 import { useGetAllAlertas } from '../../hooks/Alertas/useGetAllAlertas';
 
 
