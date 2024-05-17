@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { QrPage, TareasPage } from "../../pages";
+import { QrPage, TareasPage, UsuariosPage } from "../../pages";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
@@ -51,9 +51,9 @@ export const CustomNavbar = () => {
             <Route path={'qr'} element={<QrPage/>}/>
             <Route path='tareas' element={<TareasPage/>}/>
              <Route path={'reportes'} element={<ReportesIncidenciaPage/>}/>
+            <Route path={'usuarios'} element={<UsuariosPage/>}/>
             {/*<Route path={'tareas'} element={<TareasPage/>}/>
-            <Route path={'catalogos'} element={<CatalogosPage/>}/>
-            <Route path={'usuarios'} element={<UsuariosPage/>}/> */}
+            <Route path={'catalogos'} element={<CatalogosPage/>}/> */}
             <Route path={'*'} element={<QrPage/>}/>
           </Routes>
         </Col>

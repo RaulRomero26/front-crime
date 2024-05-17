@@ -13,6 +13,12 @@ interface GenerarTareaResponse {
   // Agrega aquí otras propiedades que pueda tener la respuesta
 }
 
+interface GenerarUsuarioResponse {
+  success: boolean;
+  data: any;
+  // Agrega aquí otras propiedades que pueda tener la respuesta
+}
+
 export const generarQR = async (
   formdata: any
 ): Promise<GenerarQrResponse | undefined> => {
@@ -115,3 +121,44 @@ export const useGetAllAlertas = async ({ perPage }:any) => {
   }
 
 };
+
+export const useGetAllUsuarios = async ({ perPage }:any) => {
+
+  try {
+    console.log('ACCION DATOS LIMIT:',perPage)
+    const params = new URLSearchParams();
+    params.append('page',perPage.toString())
+    const {data} = await crimeiqApi.get(`/all-usuarios`,{params});
+    console.log('DATA DE ACTIONS',data)
+    return data;
+  } catch (error) {
+    console.log(error)
+    return {};
+  }
+
+};
+
+export const crearUsuario = async (
+  formdata: any
+): Promise<GenerarUsuarioResponse | undefined> => {
+  try {
+    const formData = new FormData();
+    formData.append("role", formdata.role);
+    formData.append("Nombre", formdata.Nombre);
+    formData.append("Ap_paterno", formdata.Ap_paterno);
+    formData.append("Ap_materno", formdata.Ap_materno);
+    formData.append("username", formdata.username);
+    formData.append("password", formdata.password);
+    formData.append("No_tel", formdata.No_tel);
+    formData.append("foto", formdata.foto[0]);
+
+    console.log("Datos del formulario:", formdata);
+
+    const { data } = await crimeiqApi.post("/registrar", formData);
+
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+};
+
