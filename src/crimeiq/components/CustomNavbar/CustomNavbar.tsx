@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import { QrPage, TareasPage, UsuariosPage } from "../../pages";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -27,7 +27,7 @@ export const CustomNavbar = () => {
       <Row>
         <Col>
           <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
-            <Navbar.Brand className='ms-5' href="#home">
+           <Navbar.Brand className='ms-5' as={Link} to="/">
               <img src={Logo1} alt="Logo" style={{ width: '40px', height: 'auto' }} />
               <span className="crimeiq-text">CrimeIQ</span>
             </Navbar.Brand>
@@ -48,13 +48,13 @@ export const CustomNavbar = () => {
       <Row className='espaciopagina'>
         <Col className='mt-5'>
           <Routes>
-            <Route path={'qr'} element={<QrPage/>}/>
-            <Route path='tareas' element={<TareasPage/>}/>
-             <Route path={'reportes'} element={<ReportesIncidenciaPage/>}/>
-            <Route path={'usuarios'} element={<UsuariosPage/>}/>
+            <Route path={'/qr'} element={<QrPage/>}/>
+            <Route path='/tareas' element={<TareasPage/>}/>
+             <Route path={'/reportes'} element={<ReportesIncidenciaPage/>}/>
+            <Route path={'/usuarios'} element={<UsuariosPage/>}/>
             {/*<Route path={'tareas'} element={<TareasPage/>}/>
             <Route path={'catalogos'} element={<CatalogosPage/>}/> */}
-            <Route path={'*'} element={<QrPage/>}/>
+             <Route path="*" element={<QrPage />} />
           </Routes>
         </Col>
       </Row>
