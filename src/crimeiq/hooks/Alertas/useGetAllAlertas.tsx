@@ -9,7 +9,8 @@ interface GetAllAlertasProps {
 export const useGetAllAlertas = ({perPageReq}:GetAllAlertasProps) => {
 
     const [page, setPage] = useState(1);
-    const [perPage,setPerPage] = useState(perPageReq)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [perPage,_setPerPage] = useState(perPageReq)
 
     const { isLoading, isError, error, data: alertas = [], isFetching} = useQuery({
         queryKey: ['alertas',{page,perPage}],

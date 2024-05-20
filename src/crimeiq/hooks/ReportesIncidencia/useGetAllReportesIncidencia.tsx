@@ -9,7 +9,7 @@ interface GetAllReportesTareasProps {
 export const useGetAllReportesIncidencia = ({perPageReq}:GetAllReportesTareasProps) => {
 
     const [page, setPage] = useState(1);
-    const [perPage,setPerPage] = useState(perPageReq)
+    const [perPage,_setPerPage] = useState(perPageReq)
 
     const { isLoading, isError, error, data: reportes = [], isFetching} = useQuery({
         queryKey: ['reportes',{page,perPage}],

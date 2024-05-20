@@ -7,7 +7,7 @@ import { useCrearUsuario } from "../../../hooks/Usuarios/useCrearUsuario";
 
 export const CrearUsuario = () => {
 
-  const [catalogoRoles, setCatalogoRoles] = useState<any[]>(['Administrador','Guardia']);
+  const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Guardia']);
 
   const {
     register,

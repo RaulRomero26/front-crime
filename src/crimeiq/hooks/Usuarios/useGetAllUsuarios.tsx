@@ -9,7 +9,7 @@ interface GetAllUsuariosProps {
 export const useGetAllUsuarios = ({perPageReq}:GetAllUsuariosProps) => {
 
     const [page, setPage] = useState(1);
-    const [perPage,setPerPage] = useState(perPageReq)
+    const [perPage,_setPerPage] = useState(perPageReq)
 
     const { isLoading, isError, error, data: usuarios = [], isFetching} = useQuery({
         queryKey: ['usuarios',{page,perPage}],

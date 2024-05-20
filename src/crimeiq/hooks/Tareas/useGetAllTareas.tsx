@@ -9,7 +9,7 @@ interface GetAllTareasProps {
 export const useGetAllTareas = ({perPageReq}:GetAllTareasProps) => {
 
     const [page, setPage] = useState(1);
-    const [perPage,setPerPage] = useState(perPageReq)
+    const [perPage,_setPerPage] = useState(perPageReq)
 
     const { isLoading, isError, error, data: tareas = [], isFetching} = useQuery({
         queryKey: ['tareas',{page,perPage}],

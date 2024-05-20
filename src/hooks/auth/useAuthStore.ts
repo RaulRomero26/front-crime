@@ -13,7 +13,7 @@ import { authApi } from '../../api/authApi';
 //import { insertHistorial } from '../helpers/insertHistorial';
 //Se importan las funciones y hooks de la store
 import { clearErrorMessage, onChecking, onLogin, onLogout } from '../../store/auth/authSlice'; 
-import Swal from 'sweetalert2'
+
 
 interface AuthState {
     status: string;
@@ -67,7 +67,7 @@ export const useAuthStore = () => {
         console.log('estanis arruva del dispatch: ',{ username, password })
         dispatch( onChecking() );
         try {
-            const { data } = await authApi.post('/login',{ username, password });
+            const { data } = await authApi.post('/login',{ "username": username, "password": password });
             console.log('respuesta: ',{data})
             localStorage.setItem('user',JSON.stringify(data.usuario))
             localStorage.setItem('token', data.token );
@@ -79,9 +79,6 @@ export const useAuthStore = () => {
                     rol: data.usuario.rol, 
                     img: data.usuario.img, 
                     correo: data.usuario.correo, 
-                    id_customer_stripe: data.usuario.id_customer_stripe,
-                    id_subscription_active_stripe: data.usuario.id_subscription_active_stripe,
-                    id_subscription: data.usuario.id_subscription
                 }) );
             
         } catch (error) {
