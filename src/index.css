@@ -32,3 +32,11 @@ body {
 .resaltar{
   color: orange;
 }
+
+.container-form{
+  min-height: 70vh;
+}
+
+.card{
+  min-height: 190px;
+}
