@@ -162,3 +162,30 @@ export const crearUsuario = async (
   }
 };
 
+
+
+// --------------------- CATALOGOS ---------------------
+
+interface GetAllCatalogoProps {
+  page: number;
+  perPage: number;
+  catalogoBuscado: string;
+}
+
+
+export const getCatalogo = async ({ page, perPage, catalogoBuscado }: GetAllCatalogoProps) => {
+  try {
+
+    const params = new URLSearchParams();
+    params.append('page', page.toString());
+    params.append('perPage', perPage.toString());
+    params.append('catalogo', catalogoBuscado);
+
+    const { data } = await crimeiqApi.get(`/catalogo`, { params });
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+
+  return undefined; // Add return statement here
+}

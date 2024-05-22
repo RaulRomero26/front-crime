@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { ModalCatalogos } from "../../components/ModalCatalogos/ModalCatalogos";
 
 interface ModalProps {
-    catalogo: string;
+    catalogo: string | null;
 }
 
 export const CatalogosPage = () => {
 const [showModal, setShowModal] = useState(false);
-const [modalProps, setModalProps] = useState<ModalProps | null>(null);
+const [catalogoSeleccionado, setCatalogoSeleccionado] = useState<string | null>(null);
 
 const handleOpenModal = (props:ModalProps) => {
-    setModalProps(props);
+    setCatalogoSeleccionado(props.catalogo);
     setShowModal(true);
 };
 
@@ -37,7 +38,7 @@ return (
                             <p className="card-text">
                                 Aquí puedes administrar los tipos de tarea que existen.
                             </p>
-                            <button className="btn btn-primary" onClick={() => handleOpenModal({"catalogo":"tipos-tarea"})}>
+                            <button className="btn btn-primary" onClick={() => handleOpenModal({"catalogo":"usuarios"})}>
                                 Ir a Catálogo
                             </button>
                         </div>
@@ -60,22 +61,7 @@ return (
         </div>
 
         {showModal && (
-                <div className="modal show d-block" tabIndex={1}>
-                    <div className="modal-dialog modal-xl">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Modal title</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseModal}></button>
-                            </div>
-                            <div className="modal-body">
-                                <p>Modal body text goes here.</p>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleCloseModal}>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ModalCatalogos catalogoBuscado={catalogoSeleccionado} handleCloseModal={handleCloseModal}/>
             )}
     </>
 );
