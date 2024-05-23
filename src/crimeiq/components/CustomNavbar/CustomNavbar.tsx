@@ -13,6 +13,7 @@ import Logo1 from "../../../assets/2.png";
 import './CustomNavbar.css'
 import ReportesIncidenciaPage from '../../pages/ReportesIncidenciaPage/ReportesIncidenciaPage';
 import { CatalogosPage } from '../../pages/CatalogosPage/CatalogosPage';
+import { CatalogoPage } from '../../pages/CatalogoPage/CatalogoPage';
 
 export const CustomNavbar = () => {
   const [expanded, setExpanded] = useState(false);
@@ -54,6 +55,7 @@ export const CustomNavbar = () => {
             <Route path={'/reportes'} element={<ReportesIncidenciaPage/>}/>
             <Route path={'/usuarios'} element={<UsuariosPage/>}/>
             <Route path={'/catalogos'} element={<CatalogosPage/>}/>
+            <Route path={'/catalogos/:titulo'} element={<CatalogoPage/>}/>
             <Route path="*" element={<QrPage />} />
           </Routes>
         </Col>

@@ -1,22 +1,12 @@
-import { useState } from "react";
-import { ModalCatalogos } from "../../components/ModalCatalogos/ModalCatalogos";
+import { Link } from "react-router-dom";
 
 interface ModalProps {
     catalogo: string | null;
 }
 
 export const CatalogosPage = () => {
-const [showModal, setShowModal] = useState(false);
-const [catalogoSeleccionado, setCatalogoSeleccionado] = useState<string | null>(null);
 
-const handleOpenModal = (props:ModalProps) => {
-    setCatalogoSeleccionado(props.catalogo);
-    setShowModal(true);
-};
 
-const handleCloseModal = () => {
-    setShowModal(false);
-};
 
 return (
     <>
@@ -38,9 +28,9 @@ return (
                             <p className="card-text">
                                 Aquí puedes administrar los tipos de tarea que existen.
                             </p>
-                            <button className="btn btn-primary" onClick={() => handleOpenModal({"catalogo":"usuarios"})}>
+                            <Link to="../catalogos/tipos-tareas" className="btn btn-primary">
                                 Ir a Catálogo
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -51,18 +41,28 @@ return (
                             <p className="card-text">
                                 Aquí puedes administrar los roles de usuarios.
                             </p>
-                            <button className="btn btn-primary" onClick={() => handleOpenModal({"catalogo":"tipos-roles"})}>
+                            <Link to="../catalogos/roles-usuarios" className="btn btn-primary">
                                 Ir a Catálogo
-                            </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-4 mt-4">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">SERVICIOS</h5>
+                            <p className="card-text">
+                                Aquí puedes administrar los servicios con los que se cuenta actualmente
+                            </p>
+                            <Link to="../catalogos/servicios" className="btn btn-primary">
+                                Ir a Catálogo
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        {showModal && (
-                <ModalCatalogos catalogoBuscado={catalogoSeleccionado} handleCloseModal={handleCloseModal}/>
-            )}
     </>
 );
 }
