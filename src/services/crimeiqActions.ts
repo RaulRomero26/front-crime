@@ -189,3 +189,23 @@ export const getCatalogo = async ({ page, perPage, catalogoBuscado }: GetAllCata
 
   return undefined; // Add return statement here
 }
+
+
+interface EditRolesUsuarioFormData{
+  _id: { $oid: string };
+  role:string
+  catalogo?: string;
+}
+
+
+export const updateCatalogo = async (formdata:EditRolesUsuarioFormData) => {
+  console.log("Datos del formulario:", formdata);
+  try {
+    const { data } = await crimeiqApi.put("/catalogo", formdata);
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+
+  return undefined; // Add return statement here
+}

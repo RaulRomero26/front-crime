@@ -1,5 +1,6 @@
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
+import { EditRolesUsuarioForm } from '../FormsEdicionCatalogos/EditRolesUsuarioForm';
 import { useMemo, useState } from "react";
 
 
@@ -17,6 +18,7 @@ export const RolesUsuarioTable = ({data}:any) => {
 
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [filterTextRol, setFilterTextRol] = useState('');
+  const [editRow, setEditRow] = useState <DataRow | null>(null);
 
   const filters: Record<string, SubHeaderFilter> = {
     role: {
@@ -81,7 +83,7 @@ const subHeaderComponent = useMemo(() => {
       name: 'Acciones',
       cell: (row: DataRow) => (
           <div>
-              <button className='btn btn-warning me-2'>Editar</button>
+              <button className='btn btn-warning me-2' onClick={() => setEditRow(row)}>Editar</button>
               <button className='btn btn-danger'>Eliminar</button>
           </div>
       ),
@@ -89,6 +91,8 @@ const subHeaderComponent = useMemo(() => {
   ];
 
   return (
+    <>
+      {editRow && <EditRolesUsuarioForm rowData={editRow} onSave={setEditRow} />}
       <DataTable
         title="Roles de Usuario" 
         columns={columns} 
@@ -97,5 +101,6 @@ const subHeaderComponent = useMemo(() => {
         subHeader
         subHeaderComponent={subHeaderComponent}
       />
+    </>
     ); 
   }
