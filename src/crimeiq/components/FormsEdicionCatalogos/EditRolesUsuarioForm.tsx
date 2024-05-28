@@ -1,6 +1,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useMutationCatalogo } from '../../hooks/Catalogos/useMutationCatalogo';
+import { useNewOptionCatalogo } from '../../hooks/Catalogos/useNewOptionCatalogo';
 
 interface EditRolesUsuarioFormData{
     _id: { $oid: string };
@@ -11,20 +12,25 @@ interface EditRolesUsuarioFormData{
 interface EditRolesUsuarioFormProps{
     rowData: EditRolesUsuarioFormData;
     onSave: (data: EditRolesUsuarioFormData | null) => void;
+    isNewRegister?: boolean;
 }
 
-export const EditRolesUsuarioForm = ({ rowData, onSave }:EditRolesUsuarioFormProps) => {
+export const EditRolesUsuarioForm = ({ rowData, onSave,isNewRegister }:EditRolesUsuarioFormProps) => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: rowData
   });
 
 const mutationCatalogo = useMutationCatalogo();
-
+const newOptionCatalogo = useNewOptionCatalogo();
 const onSubmit = (data:EditRolesUsuarioFormData) => {
     // Aquí deberías actualizar los datos en tu estado o hacer una llamada API para guardar los cambios
     console.log(data)
     data.catalogo='roles-usuarios';
-    mutationCatalogo.mutate(data);
+    if(isNewRegister){
+        newOptionCatalogo.mutate(data);
+    }else{
+        mutationCatalogo.mutate(data);
+    }
     onSave(data);
    
 };
@@ -34,7 +40,7 @@ const handleCancel = () => {
     onSave(null);
 };
   // Si la mutación fue exitosa, cierra el formulario
-  if (mutationCatalogo.isSuccess) {
+  if (mutationCatalogo.isSuccess || newOptionCatalogo.isSuccess) {
     onSave(null);
   }
 
@@ -45,7 +51,7 @@ return (
                 <label className='form-label'>
                 id:
                 </label>
-                <input {...register("_id.$oid", { required: true })} disabled className='form-control'/>
+                <input {...register("_id.$oid", { required: false })} disabled className='form-control'/>
             </div>
             <div className="col-md-3 form-group">
                 <label className='form-label'>

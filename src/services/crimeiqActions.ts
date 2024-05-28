@@ -209,3 +209,16 @@ export const updateCatalogo = async (formdata:EditRolesUsuarioFormData) => {
 
   return undefined; // Add return statement here
 }
+
+export const newOptionCatalogo = async (formdata:EditRolesUsuarioFormData) => {
+  console.log('Esta es la funcion post')
+  console.log("Datos del formulario:", formdata);
+  try {
+    const { data } = await crimeiqApi.post("/catalogo", formdata);
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+
+  return undefined; // Add return statement here
+}

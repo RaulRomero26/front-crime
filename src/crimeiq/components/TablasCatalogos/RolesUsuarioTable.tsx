@@ -19,6 +19,8 @@ export const RolesUsuarioTable = ({data}:any) => {
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [filterTextRol, setFilterTextRol] = useState('');
   const [editRow, setEditRow] = useState <DataRow | null>(null);
+  const [deleteRow, setDeleteRow] = useState <DataRow | null>(null);
+  const [isNewRegister, setIsNewRegister] = useState<boolean>(false);
 
   const filters: Record<string, SubHeaderFilter> = {
     role: {
@@ -37,11 +39,22 @@ export const RolesUsuarioTable = ({data}:any) => {
       )
     );
   }
-
+  const handleNewRegister = () => {
+    setEditRow({ _id: { $oid: '' }, role: '' }); // Puedes establecer esto a los valores predeterminados para un nuevo registro
+    setIsNewRegister(true);
+  };
 
 const subHeaderComponent = useMemo(() => {
   return (
     <>
+      <div className="row">
+        <div className="col">
+          <button className="btn btn-primary me-2" onClick={handleNewRegister}>
+            Agregar Rol
+          </button>
+        </div>
+      </div>
+
       <div className="row">
         
           {Object.keys(filters).map(key => {
@@ -84,7 +97,7 @@ const subHeaderComponent = useMemo(() => {
       cell: (row: DataRow) => (
           <div>
               <button className='btn btn-warning me-2' onClick={() => setEditRow(row)}>Editar</button>
-              <button className='btn btn-danger'>Eliminar</button>
+              <button className='btn btn-danger' onClick={() => setDeleteRow(row)}>Eliminar</button>
           </div>
       ),
   },
@@ -92,7 +105,7 @@ const subHeaderComponent = useMemo(() => {
 
   return (
     <>
-      {editRow && <EditRolesUsuarioForm rowData={editRow} onSave={setEditRow} />}
+      {editRow && <EditRolesUsuarioForm isNewRegister={isNewRegister} rowData={editRow} onSave={setEditRow} />}
       <DataTable
         title="Roles de Usuario" 
         columns={columns} 
