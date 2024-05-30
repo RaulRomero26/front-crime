@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetCatalogo } from "../../hooks/Catalogos/useGetCatalogo";
 import { TiposTareaTable } from "../../components/TablasCatalogos/TiposTareaTable";
 import { RolesUsuarioTable } from "../../components/TablasCatalogos/RolesUsuarioTable";
+import { TiposServiciosTable } from "../../components/TablasCatalogos/TiposServiciosTable";
 
 
 const renderComponentBasedOnTitle = (titulo:string, data:any) => {
@@ -11,6 +12,8 @@ const renderComponentBasedOnTitle = (titulo:string, data:any) => {
             return <TiposTareaTable data={data.data}/>;
         case "roles-usuarios":
             return <RolesUsuarioTable data={data.data}/>;
+        case "servicios":
+            return <TiposServiciosTable data={data.data}/>;
         default:
             return null;
     }

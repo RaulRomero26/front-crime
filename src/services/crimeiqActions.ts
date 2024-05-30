@@ -193,20 +193,30 @@ export const getCatalogo = async ({ page, perPage, catalogoBuscado }: GetAllCata
 
 interface EditRolesUsuarioFormData{
   _id: { $oid: string };
-  role:string
+  role:string;
   catalogo?: string;
   activo?: boolean;
 }
 
 interface EditTiposTareasFormData{
   _id: { $oid: string };
-  actividad:string
+  actividad:string;
   catalogo?: string;
   activo?: boolean;
 }
 
+interface EditServiciosFormData{
+  _id: { $oid: string };
+  servicio:string;
+  direccion:string;
+  catalogo?: string;
+  activo?: boolean;
 
-export const updateCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData) => {
+}
+
+
+
+export const updateCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData | EditServiciosFormData) => {
   console.log("Datos del formulario:", formdata);
   try {
     const { data } = await crimeiqApi.put("/catalogo", formdata);
@@ -218,7 +228,7 @@ export const updateCatalogo = async (formdata:EditRolesUsuarioFormData | EditTip
   return undefined; // Add return statement here
 }
 
-export const newOptionCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData) => {
+export const newOptionCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData | EditServiciosFormData) => {
   console.log('Esta es la funcion post')
   console.log("Datos del formulario:", formdata);
   try {
