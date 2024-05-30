@@ -195,10 +195,18 @@ interface EditRolesUsuarioFormData{
   _id: { $oid: string };
   role:string
   catalogo?: string;
+  activo?: boolean;
+}
+
+interface EditTiposTareasFormData{
+  _id: { $oid: string };
+  actividad:string
+  catalogo?: string;
+  activo?: boolean;
 }
 
 
-export const updateCatalogo = async (formdata:EditRolesUsuarioFormData) => {
+export const updateCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData) => {
   console.log("Datos del formulario:", formdata);
   try {
     const { data } = await crimeiqApi.put("/catalogo", formdata);
@@ -210,7 +218,7 @@ export const updateCatalogo = async (formdata:EditRolesUsuarioFormData) => {
   return undefined; // Add return statement here
 }
 
-export const newOptionCatalogo = async (formdata:EditRolesUsuarioFormData) => {
+export const newOptionCatalogo = async (formdata:EditRolesUsuarioFormData | EditTiposTareasFormData) => {
   console.log('Esta es la funcion post')
   console.log("Datos del formulario:", formdata);
   try {

@@ -44,8 +44,8 @@ export const CatalogoPage = () => {
             </div>
         </div>
         <div className="container-fluid container-form">
-            <div className="row">
-                <div className="col-md-12">
+            <div className="row  d-flex justify-content-center">
+                <div className="col-md-10 mt-4">
                     {renderComponentBasedOnTitle(titulo || '', catalogo || {})}
                 </div>
             </div>

@@ -2,11 +2,13 @@ import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
 import { EditRolesUsuarioForm } from '../FormsEdicionCatalogos/EditRolesUsuarioForm';
 import { useMemo, useState } from "react";
+import { useMutationCatalogo } from '../../hooks/Catalogos/useMutationCatalogo';
 
 
 interface DataRow {
     _id: { $oid: string };
   	role: string;
+    activo?: boolean;
   }
 
 interface SubHeaderFilter {
@@ -19,8 +21,9 @@ export const RolesUsuarioTable = ({data}:any) => {
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [filterTextRol, setFilterTextRol] = useState('');
   const [editRow, setEditRow] = useState <DataRow | null>(null);
-  const [deleteRow, setDeleteRow] = useState <DataRow | null>(null);
+
   const [isNewRegister, setIsNewRegister] = useState<boolean>(false);
+  const mutationCatalogo = useMutationCatalogo();
 
   const filters: Record<string, SubHeaderFilter> = {
     role: {
@@ -40,8 +43,11 @@ export const RolesUsuarioTable = ({data}:any) => {
     );
   }
   const handleNewRegister = () => {
-    setEditRow({ _id: { $oid: '' }, role: '' }); // Puedes establecer esto a los valores predeterminados para un nuevo registro
+    setEditRow({ _id: { $oid: '' }, role: '',activo:true }); // Puedes establecer esto a los valores predeterminados para un nuevo registro
     setIsNewRegister(true);
+  };
+  const handleDeleteRow = (row: DataRow) => {
+    mutationCatalogo.mutate({ ...row, activo: !row.activo, catalogo: 'roles-usuarios'});
   };
 
 const subHeaderComponent = useMemo(() => {
@@ -93,11 +99,15 @@ const subHeaderComponent = useMemo(() => {
       selector: (row: DataRow) => row.role,
     },
     {
+      name: 'Estado',
+      selector: (row: DataRow) => (row.activo) ? 'Activo' : 'Inactivo',
+    },
+    {
       name: 'Acciones',
       cell: (row: DataRow) => (
           <div>
               <button className='btn btn-warning me-2' onClick={() => setEditRow(row)}>Editar</button>
-              <button className='btn btn-danger' onClick={() => setDeleteRow(row)}>Eliminar</button>
+              <button className={row.activo ? 'btn btn-danger' : 'btn btn-success'} onClick={() => handleDeleteRow(row)}>{(row.activo) ? 'Inactivar' : 'Activar'}</button>
           </div>
       ),
   },

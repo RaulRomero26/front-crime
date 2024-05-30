@@ -3,30 +3,30 @@ import { useForm } from 'react-hook-form';
 import { useMutationCatalogo } from '../../hooks/Catalogos/useMutationCatalogo';
 import { useNewOptionCatalogo } from '../../hooks/Catalogos/useNewOptionCatalogo';
 
-interface EditRolesUsuarioFormData{
+interface EditTiposTareaFormData {
     _id: { $oid: string };
-    role:string
+    actividad:string
     catalogo?: string;
     activo?: boolean;
 }
 
-interface EditRolesUsuarioFormProps{
-    rowData: EditRolesUsuarioFormData;
-    onSave: (data: EditRolesUsuarioFormData | null) => void;
+interface EditTiposTareaFormProps{
+    rowData: EditTiposTareaFormData ;
+    onSave: (data: EditTiposTareaFormData  | null) => void;
     isNewRegister?: boolean;
 }
 
-export const EditRolesUsuarioForm = ({ rowData, onSave,isNewRegister }:EditRolesUsuarioFormProps) => {
+export const EditTiposTareaForm = ({ rowData, onSave,isNewRegister }:EditTiposTareaFormProps) => {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: rowData
   });
 
 const mutationCatalogo = useMutationCatalogo();
 const newOptionCatalogo = useNewOptionCatalogo();
-const onSubmit = (data:EditRolesUsuarioFormData) => {
+const onSubmit = (data:EditTiposTareaFormData ) => {
     // Aquí deberías actualizar los datos en tu estado o hacer una llamada API para guardar los cambios
     console.log(data)
-    data.catalogo='roles-usuarios';
+    data.catalogo='tipos-tareas';
     if(isNewRegister){
         newOptionCatalogo.mutate(data);
     }else{
@@ -56,9 +56,9 @@ return (
             </div>
             <div className="col-md-3 form-group">
                 <label className='form-label'>
-                Role:
+                Actividad:
                 </label>
-                <input {...register("role", { required: true })} className='form-control'/>
+                <input {...register("actividad", { required: true })} className='form-control'/>
             </div>
         </div>
         <div className="row d-flex justify-content-center my-3">

@@ -1,11 +1,14 @@
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
+import { EditTiposTareaForm } from '../FormsEdicionCatalogos/EditTiposTareaForm';
 import { useMemo, useState } from "react";
+import { useMutationCatalogo } from '../../hooks/Catalogos/useMutationCatalogo';
 
 
 interface DataRow {
     _id: { $oid: string };
   	actividad: string;
+    activo?: boolean;
   }
 
 interface SubHeaderFilter {
@@ -14,13 +17,16 @@ interface SubHeaderFilter {
   component: React.FC<any>;
 }
 export const TiposTareaTable = ({data}:any) => {
-  
-    console.log('entre al componente de tipos tarea')
+
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [filterTextActividad, setFilterTextActividad] = useState('');
+  const [editRow, setEditRow] = useState <DataRow | null>(null);
+
+  const [isNewRegister, setIsNewRegister] = useState<boolean>(false);
+  const mutationCatalogo = useMutationCatalogo();
 
   const filters: Record<string, SubHeaderFilter> = {
-    role: {
+    actividad: {
       value: filterTextActividad,
       setter: setFilterTextActividad,
       component: TextFilterComponent,
@@ -36,11 +42,25 @@ export const TiposTareaTable = ({data}:any) => {
       )
     );
   }
-
+  const handleNewRegister = () => {
+    setEditRow({ _id: { $oid: '' }, actividad: '',activo:true }); // Puedes establecer esto a los valores predeterminados para un nuevo registro
+    setIsNewRegister(true);
+  };
+  const handleDeleteRow = (row: DataRow) => {
+    mutationCatalogo.mutate({ ...row, activo: !row.activo, catalogo: 'tipos-tareas'});
+  };
 
 const subHeaderComponent = useMemo(() => {
   return (
     <>
+      <div className="row">
+        <div className="col">
+          <button className="btn btn-primary me-2" onClick={handleNewRegister}>
+            Agregar Actividad
+          </button>
+        </div>
+      </div>
+
       <div className="row">
         
           {Object.keys(filters).map(key => {
@@ -69,34 +89,41 @@ const subHeaderComponent = useMemo(() => {
   );
 }, [filterTextActividad, resetPaginationToggle]);
 
-const columns: TableColumn<DataRow>[] = [
+  const columns: TableColumn<DataRow>[] = [
     {
-            name: 'Id',
-            selector: (row: DataRow) => row._id.$oid,
+      name: 'Id',
+      selector: (row: DataRow) => row._id.$oid,
     },
     {
-        name: 'Actividad',
-        selector: (row: DataRow) => row.actividad,
+      name: 'Actividad',
+      selector: (row: DataRow) => row.actividad,
     },
     {
-        name: 'Acciones',
-        cell: (row: DataRow) => (
-            <div>
-                <button className='btn btn-warning me-2'>Editar</button>
-                <button className='btn btn-danger'>Eliminar</button>
-            </div>
-        ),
+      name: 'Estado',
+      selector: (row: DataRow) => (row.activo) ? 'Activo' : 'Inactivo',
     },
-];
+    {
+      name: 'Acciones',
+      cell: (row: DataRow) => (
+          <div>
+              <button className='btn btn-warning me-2' onClick={() => setEditRow(row)}>Editar</button>
+              <button className={row.activo ? 'btn btn-danger' : 'btn btn-success'} onClick={() => handleDeleteRow(row)}>{(row.activo) ? 'Inactivar' : 'Activar'}</button>
+          </div>
+      ),
+  },
+  ];
 
   return (
+    <>
+      {editRow && <EditTiposTareaForm isNewRegister={isNewRegister} rowData={editRow} onSave={setEditRow} />}
       <DataTable
-        title="Tipos de actividad" 
+        title="Tipos de Tareas" 
         columns={columns} 
         data={filteredItems} 
         pagination
         subHeader
         subHeaderComponent={subHeaderComponent}
       />
+    </>
     ); 
   }
