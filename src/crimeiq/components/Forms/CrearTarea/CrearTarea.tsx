@@ -10,6 +10,8 @@ import { useCrearTarea } from "../../../hooks/Tareas/useCrearTarea";
 export const CrearTarea = () => {
 
   const [catalogoUsuarios, setCatalogoUsuarios] = useState<any[]>([]);
+  const [catalogoTipoTareas, setCatalogoTipoTareas] = useState<any[]>([]);
+  const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
 
   const {
     register,
@@ -20,7 +22,10 @@ export const CrearTarea = () => {
   useEffect(() => {
     const getCatalogoUsuarios = async () => {
       try {
-        const response = await crimeiqApi.post("/catalogo_usuarios");
+        const params = new URLSearchParams();
+        params.append("catalogo", "usuarios");
+        const response = await crimeiqApi.get("/catalogo_activo", { params });
+
         console.log("Catalogo de usuarios:", response.data);
         setCatalogoUsuarios(response.data.data.map((usuario: any) => ({ username: usuario.username, id: usuario._id.$oid })));
         console.log(catalogoUsuarios);
@@ -28,7 +33,39 @@ export const CrearTarea = () => {
         console.log("Error al obtener el catalogo de usuarios:", error);
       }
     };
+   
+
+    const getCalogoTipoTareas = async () => {
+      try {
+        const params = new URLSearchParams();
+        params.append("catalogo", "tipos-tareas");
+        const response = await crimeiqApi.get("/catalogo_activo", { params });
+
+        console.log("Catalogo de tipo de tareas:", response.data);
+        setCatalogoTipoTareas(response.data.data.map((tarea: any) => ({ actividad: tarea.actividad, id: tarea._id.$oid })));
+        console.log(catalogoTipoTareas);
+      } catch (error) {
+        console.log("Error al obtener el catalogo de tipo de tareas:", error);
+      }
+    }
+
+    const getCatalogoServicios = async () => {
+      try {
+        const params = new URLSearchParams();
+        params.append("catalogo", "servicios");
+        const response = await crimeiqApi.get("/catalogo_activo", { params });
+
+        console.log("Catalogo de servicios:", response.data);
+        setCatalogoServicios(response.data.data.map((servicio: any) => ({ servicio: servicio.servicio, id: servicio._id.$oid })));
+        console.log(catalogoServicios);
+      } catch (error) {
+        console.log("Error al obtener el catalogo de servicios:", error);
+      }
+    }
+
     getCatalogoUsuarios();
+    getCalogoTipoTareas();
+    getCatalogoServicios();
   }, []);
 
 
@@ -124,14 +161,19 @@ export const CrearTarea = () => {
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="tipo_tarea">Tipo de la tarea:</label>
-                <input
+                <select
                     className="form-control"
-                    type="text"
                     id="tipo_tarea"
+                    
                     {...register("tipo_tarea", {
-                    required: "El tipo_tarea es requerido",
+                        required: "El tipo es requerido",
                     })}
-                />
+                >
+                    <option value="">Seleccionar Tipo de Tarea</option>
+                    {catalogoTipoTareas.map((tarea) => (
+                      <option key={tarea.id} value={tarea.actividad}>{tarea.actividad}</option>
+                    ))}
+                </select>
                 <ErrorMessage
                     errors={errors}
                     name="tipo_tarea"
@@ -140,14 +182,19 @@ export const CrearTarea = () => {
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="no_servicio">Servicio la tarea:</label>
-                <input
+                <select
                     className="form-control"
-                    type="text"
                     id="no_servicio"
+                    
                     {...register("no_servicio", {
-                    required: "El no_servicio es requerido",
+                        required: "El servicio es requerido",
                     })}
-                />
+                >
+                    <option value="">Seleccionar el Servicio</option>
+                    {catalogoServicios.map((servicio) => (
+                      <option key={servicio.id} value={servicio.servicio}>{servicio.servicio}</option>
+                    ))}
+                </select>
                 <ErrorMessage
                     errors={errors}
                     name="no_servicio"
