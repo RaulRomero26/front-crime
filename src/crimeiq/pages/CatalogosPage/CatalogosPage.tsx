@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
 
-interface ModalProps {
-    catalogo: string | null;
-}
 
 export const CatalogosPage = () => {
 
