@@ -12,6 +12,7 @@ export const CrearTarea = () => {
   const [catalogoUsuarios, setCatalogoUsuarios] = useState<any[]>([]);
   const [catalogoTipoTareas, setCatalogoTipoTareas] = useState<any[]>([]);
   const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
+  const [esRecurrente, setEsRecurrente] = useState(false);
 
   const {
     register,
@@ -201,6 +202,33 @@ export const CrearTarea = () => {
                     render={({ message }) => <p className="invalid-form">{message}</p>}
                 />
               </div>
+
+              <div className="form-group">
+                <label className="form-label" htmlFor="recurrente">¿Es una tarea recurrente?</label>
+                <input
+                  type="checkbox"
+                  id="recurrente"
+                  onChange={() => setEsRecurrente(!esRecurrente)}
+                />
+              </div>
+
+              {esRecurrente && (
+                <div className="form-group">
+                  <label className="form-label">Días de la semana:</label>
+                  {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day) => (
+                    <div key={day}  className="me-2" style={{ display: 'inline-block', width: 'auto' }}>
+                      <input
+                        className="form-check-input"
+                       
+                        type="checkbox"
+                        id={`${day}`}
+                        {...register(`dias_semana.${day}`)}
+                      />
+                      <label htmlFor={`${day}`}>{day}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <button className="btn btn-success my-3" type="submit">CREAR</button>
             </form>

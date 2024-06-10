@@ -2,6 +2,8 @@ import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
 import { useMemo, useState } from "react";
 import { useGetAllUsuarios } from "../../hooks/Usuarios/useGetAllUsuarios";
+import { useMutationUsuario } from '../../hooks/Usuarios/useMutationUsuario';
+import { EditarUsuarioForm } from '../Forms/EditarUsuario/EditarUsuarioForm';
 
 
 interface DataRow {
@@ -11,6 +13,13 @@ interface DataRow {
     username: string;
     No_tel: string;
     Foto: string;
+    activo: boolean;
+    Dir: string;
+    Tipo_sangre: string;
+    serv_asignado: string;
+    id?: { $oid: string };
+    password?: string;
+    role: string;
 }
 
 interface SubHeaderFilter {
@@ -25,15 +34,21 @@ export const UsuariosTable = () => {
     const [filterTextAp_paterno, setFilterTextAp_paterno] = useState('');
     const [filterTextUsername, setFilterTextUsername] = useState('');
     const [filterTextNo_tel, setFilterTextNo_tel] = useState('');
+    const [editRow, setEditRow] = useState <DataRow | null>(null);
     
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
 
   const { isLoading, usuarios, isFetching } = useGetAllUsuarios({perPageReq: 1000});
+  const mutationUsuario = useMutationUsuario();
 
   if(!isFetching && !isLoading) {
     console.log(usuarios.data);//Asi accedemos a la data que nos regresa el endpoint
   }
+
+  const handleDeleteRow = (row: DataRow) => {
+    mutationUsuario.mutate({ ...row, activo: !row.activo});
+  };
 
   const filters: Record<string, SubHeaderFilter> = {
     Nombre: {
@@ -60,8 +75,7 @@ export const UsuariosTable = () => {
       value: filterTextNo_tel,
       setter: setFilterTextNo_tel,
       component: TextFilterComponent,
-    },
-
+    }
   };
   
   let filteredItems: DataRow[] = [];
@@ -127,21 +141,40 @@ const subHeaderComponent = useMemo(() => {
       name: 'Telefono',
       selector: (row: DataRow) => row.No_tel,
     },
+    {
+      name: 'Direccion',
+      selector: (row: DataRow) => row.Dir,
+
+    },
+    {
+      name: 'Estado',
+      selector: (row: DataRow) => (row.activo) ? 'Activo' : 'Inactivo',
+    },
+    {
+      name: 'Acciones',
+      cell: (row: DataRow) => (
+          <div>
+              <button className='btn btn-warning me-2' onClick={() => setEditRow(row)}>Editar</button>
+              <button className={row.activo ? 'btn btn-danger' : 'btn btn-success'} onClick={() => handleDeleteRow(row)}>{(row.activo) ? 'Inactivar' : 'Activar'}</button>
+          </div>
+      ),
+    },
 
   ];
 
   return (
     (!isFetching && !isLoading) && (
-    
+      <>
+        {editRow && <EditarUsuarioForm rowData={editRow} onSave={setEditRow} />}
         <DataTable
-        title="Usuarios Creados" 
+          title="Usuarios Creados" 
           columns={columns} 
           data={filteredItems} 
           pagination
           subHeader
           subHeaderComponent={subHeaderComponent}
         />
-     
-      )
-    ); 
-  }
+      </>
+    )
+  );
+}

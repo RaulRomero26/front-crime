@@ -2,12 +2,14 @@
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCrearUsuario } from "../../../hooks/Usuarios/useCrearUsuario";
+import { crimeiqApi } from "../../../../api/crimeiqApi";
 
 export const CrearUsuario = () => {
 
   const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Guardia']);
+  const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
 
   const {
     register,
@@ -15,6 +17,28 @@ export const CrearUsuario = () => {
     formState: { errors },
   } = useForm();
   
+
+
+
+  useEffect(() => {
+
+    const getCatalogoServicios = async () => {
+      try {
+        const params = new URLSearchParams();
+        params.append("catalogo", "servicios");
+        const response = await crimeiqApi.get("/catalogo_activo", { params });
+
+        console.log("Catalogo de servicios:", response.data);
+        setCatalogoServicios(response.data.data.map((servicio: any) => ({ servicio: servicio.servicio, id: servicio._id.$oid })));
+        console.log(catalogoServicios);
+      } catch (error) {
+        console.log("Error al obtener el catalogo de servicios:", error);
+      }
+    }
+
+    getCatalogoServicios();
+  }, []);
+
 
 
   const usuarioMutation = useCrearUsuario();
@@ -147,6 +171,62 @@ export const CrearUsuario = () => {
                         render={({ message }) => <p className="invalid-form">{message}</p>}
                     />
                 </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="Tipo_sangre">Tipo de Sangre:</label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        id="Tipo_sangre"
+                        {...register("Tipo_sangre", {
+                        required: "El Telefono es requerido",
+                        })}
+                    />
+                    <ErrorMessage
+                        errors={errors}
+                        name="Tipo_sangre"
+                        render={({ message }) => <p className="invalid-form">{message}</p>}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="Dir">Dirección:</label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        id="Dir"
+                        {...register("Dir", {
+                        required: "El Telefono es requerido",
+                        })}
+                    />
+                    <ErrorMessage
+                        errors={errors}
+                        name="Dir"
+                        render={({ message }) => <p className="invalid-form">{message}</p>}
+                    />
+                </div>
+
+                <div className="form-group">
+                <label className="form-label" htmlFor="serv_asignado">Servicio del usuario:</label>
+                <select
+                    className="form-control"
+                    id="serv_asignado"
+                    
+                    {...register("serv_asignado", {
+                        required: "El servicio es requerido",
+                    })}
+                >
+                    <option value="">Seleccionar el Servicio</option>
+                    {catalogoServicios.map((servicio) => (
+                      <option key={servicio.id} value={servicio.servicio}>{servicio.servicio}</option>
+                    ))}
+                </select>
+                <ErrorMessage
+                    errors={errors}
+                    name="serv_asignado"
+                    render={({ message }) => <p className="invalid-form">{message}</p>}
+                />
+              </div>
              
                 <div className="form-group">
                   <label className="form-label" htmlFor="foto">Imagen</label>
@@ -157,6 +237,8 @@ export const CrearUsuario = () => {
                     {...register("foto")}
                   />
                 </div>
+
+                
               
 
               <button className="btn btn-success my-3" type="submit">CREAR</button>

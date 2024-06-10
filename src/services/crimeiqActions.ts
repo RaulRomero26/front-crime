@@ -150,6 +150,9 @@ export const crearUsuario = async (
     formData.append("username", formdata.username);
     formData.append("password", formdata.password);
     formData.append("No_tel", formdata.No_tel);
+    formData.append("Tipo_sangre", formdata.Tipo_sangre);
+    formData.append("Dir", formdata.Dir);
+    formData.append("serv_asignado", formdata.serv_asignado);
     formData.append("foto", formdata.foto[0]);
 
     console.log("Datos del formulario:", formdata);
@@ -162,6 +165,31 @@ export const crearUsuario = async (
   }
 };
 
+export const updateUsuario = async (formdata: any) => {
+  try {
+    const formData = new FormData();
+    formData.append("_id", formdata._id);
+    formData.append("role", formdata.role);
+    formData.append("Nombre", formdata.Nombre);
+    formData.append("Ap_paterno", formdata.Ap_paterno);
+    formData.append("Ap_materno", formdata.Ap_materno);
+    formData.append("username", formdata.username);
+    formData.append("password", formdata.password);
+    formData.append("No_tel", formdata.No_tel);
+    formData.append("Tipo_sangre", formdata.Tipo_sangre);
+    formData.append("Dir", formdata.Dir);
+    formData.append("serv_asignado", formdata.serv_asignado);
+    formData.append("foto", formdata.foto[0]);
+
+    console.log("Datos del formulario:", formdata);
+
+    const { data } = await crimeiqApi.post("/actualizar-usuario", formData);
+
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+}
 
 
 // --------------------- CATALOGOS ---------------------
