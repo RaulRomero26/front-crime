@@ -168,7 +168,7 @@ export const crearUsuario = async (
 export const updateUsuario = async (formdata: any) => {
   try {
     const formData = new FormData();
-    formData.append("_id", formdata._id);
+    formData.append("_id", formdata._id.$oid);
     formData.append("role", formdata.role);
     formData.append("Nombre", formdata.Nombre);
     formData.append("Ap_paterno", formdata.Ap_paterno);
@@ -179,7 +179,7 @@ export const updateUsuario = async (formdata: any) => {
     formData.append("Tipo_sangre", formdata.Tipo_sangre);
     formData.append("Dir", formdata.Dir);
     formData.append("serv_asignado", formdata.serv_asignado);
-    formData.append("foto", formdata.foto[0]);
+    formData.append("foto", formdata.Foto[0]);
 
     console.log("Datos del formulario:", formdata);
 

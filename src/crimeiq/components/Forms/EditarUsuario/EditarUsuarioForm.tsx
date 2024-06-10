@@ -80,160 +80,165 @@ const handleCancel = () => {
 
 return (
     <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+        <div className="row">
+            <div className="col-md-3 form-group">
+                <label className='form-label'>
+                id:
+                </label>
+                <input {...register("_id.$oid", { required: false })} disabled className='form-control'/>
+            </div>
                    
-        <div className="form-group">
+        <div className="col-md-3 form-group">
         <label  className="form-label" htmlFor="role">Rol:</label>
-        <select
-            className="form-control"
-            id="role"
-            
-            {...register("role", {
-                required: "El rol es requerido",
-            })}
-        >
-            <option value="">Seleccionar un rol</option>
-            {catalogoRoles.map((rol) => (
-                <option key={rol} value={rol}>{rol}</option>
-            ))}
-        </select>
-        <ErrorMessage
-            errors={errors}
-            name="role"
-            render={({ message }) => <p className="invalid-form">{message}</p>}
-        />
+            <select
+                className="form-control"
+                id="role"
+                
+                {...register("role", {
+                    required: "El rol es requerido",
+                })}
+                >
+                <option value="">Seleccionar un rol</option>
+                {catalogoRoles.map((rol) => (
+                    <option key={rol} value={rol}>{rol}</option>
+                ))}
+            </select>
+            <ErrorMessage
+                errors={errors}
+                name="role"
+                render={({ message }) => <p className="invalid-form">{message}</p>}
+                />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
         <label className="form-label" htmlFor="Nombre">Nombre:</label>
         <input
             className="form-control"
             type="text"
             id="Nombre"
             {...register("Nombre", {
-            required: "El Nombre es requerido",
+                required: "El Nombre es requerido",
             })}
-        />
+            />
         <ErrorMessage
             errors={errors}
             name="Nombre"
             render={({ message }) => <p className="invalid-form">{message}</p>}
-        />
+            />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
         <label className="form-label" htmlFor="Ap_paterno">Apellido Paterno</label>
         <input
             className="form-control"
             type="text"
             id="Ap_paterno"
             {...register("Ap_paterno", {
-            required: "El Apellido Paterno es requerido",
+                required: "El Apellido Paterno es requerido",
             })}
-        />
+            />
         <ErrorMessage
             errors={errors}
             name="Ap_paterno"
             render={({ message }) => <p className="invalid-form">{message}</p>}
-        />
+            />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="Ap_materno">Apellido Materno</label>
             <input
                 className="form-control"
                 type="text"
                 id="Ap_materno"
                 {...register("Ap_materno", {
-                required: "El Apellido Materno es requerido",
+                    required: "El Apellido Materno es requerido",
                 })}
-            />
+                />
             <ErrorMessage
                 errors={errors}
                 name="Ap_materno"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="username">Username</label>
             <input
                 className="form-control"
                 type="text"
                 id="username"
                 {...register("username", {
-                required: "El Username es requerido",
+                    required: "El Username es requerido",
                 })}
-            />
+                />
             <ErrorMessage
                 errors={errors}
                 name="username"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="password">Password</label>
             <input
                 className="form-control"
                 type="text"
                 id="password"
-                {...register("password", {
-                required: "El password es requerido",
-                })}
-            />
+                {...register("password")}
+                />
             <ErrorMessage
                 errors={errors}
                 name="password"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="No_tel">Telefono</label>
             <input
                 className="form-control"
                 type="text"
                 id="No_tel"
                 {...register("No_tel", {
-                required: "El Telefono es requerido",
+                    required: "El Telefono es requerido",
                 })}
-            />
+                />
             <ErrorMessage
                 errors={errors}
                 name="No_tel"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
 
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="Tipo_sangre">Tipo de Sangre:</label>
             <input
                 className="form-control"
                 type="text"
                 id="Tipo_sangre"
                 {...register("Tipo_sangre", {
-                required: "El Telefono es requerido",
+                    required: "El Telefono es requerido",
                 })}
-            />
+                />
             <ErrorMessage
                 errors={errors}
                 name="Tipo_sangre"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
 
-        <div className="form-group">
+        <div className="col-md-6 form-group">
             <label className="form-label" htmlFor="Dir">Dirección:</label>
             <input
                 className="form-control"
                 type="text"
                 id="Dir"
                 {...register("Dir", {
-                required: "El Telefono es requerido",
+                    required: "El Telefono es requerido",
                 })}
-            />
+                />
             <ErrorMessage
                 errors={errors}
                 name="Dir"
                 render={({ message }) => <p className="invalid-form">{message}</p>}
-            />
+                />
         </div>
 
-        <div className="form-group">
+        <div className="col-md-3 form-group">
         <label className="form-label" htmlFor="serv_asignado">Servicio del usuario:</label>
         <select
             className="form-control"
@@ -242,7 +247,7 @@ return (
             {...register("serv_asignado", {
                 required: "El servicio es requerido",
             })}
-        >
+            >
             <option value="">Seleccionar el Servicio</option>
             {catalogoServicios.map((servicio) => (
                 <option key={servicio.id} value={servicio.servicio}>{servicio.servicio}</option>
@@ -252,10 +257,10 @@ return (
             errors={errors}
             name="serv_asignado"
             render={({ message }) => <p className="invalid-form">{message}</p>}
-        />
+            />
         </div>
         
-        <div className="form-group">
+        <div className="col-md-3 form-group">
             <label className="form-label" htmlFor="foto">Imagen</label>
             <input
             className="form-control"
@@ -265,10 +270,11 @@ return (
             />
         </div>
         
+        </div>
 
         <div className="row d-flex justify-content-center my-3">
             <div className="col-md-2">
-                <button type="submit" className='btn btn-success me-2'>Save</button>
+                <button type="button" className='btn btn-success me-2' onClick={handleSubmit(onSubmit)}>Save</button>
                 <button type="button" className="btn btn-danger" onClick={handleCancel}>
                     Cancel
                 </button>

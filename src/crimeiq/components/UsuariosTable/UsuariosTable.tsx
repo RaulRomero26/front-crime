@@ -7,7 +7,9 @@ import { EditarUsuarioForm } from '../Forms/EditarUsuario/EditarUsuarioForm';
 
 
 interface DataRow {
-	Nombre: string;
+
+    _id?: { $oid: string };
+	  Nombre: string;
     Ap_materno: string;
     Ap_paterno: string;
     username: string;
@@ -17,7 +19,6 @@ interface DataRow {
     Dir: string;
     Tipo_sangre: string;
     serv_asignado: string;
-    id?: { $oid: string };
     password?: string;
     role: string;
 }
@@ -122,7 +123,11 @@ const subHeaderComponent = useMemo(() => {
 
   const columns: TableColumn<DataRow>[] = [
     {
-      name: 'Nombree',
+      name: 'ID',
+      selector: (row: DataRow) => row._id?.$oid!,
+    },
+    {
+      name: 'Nombre',
       selector: (row: DataRow) => row.Nombre,
     },
     {
