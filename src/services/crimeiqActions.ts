@@ -180,6 +180,7 @@ export const updateUsuario = async (formdata: any) => {
     formData.append("Dir", formdata.Dir);
     formData.append("serv_asignado", formdata.serv_asignado);
     formData.append("foto", formdata.Foto[0]);
+    formData.append("activo", formdata.activo);
 
     console.log("Datos del formulario:", formdata);
 

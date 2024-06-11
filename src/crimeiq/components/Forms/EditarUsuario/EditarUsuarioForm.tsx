@@ -28,11 +28,11 @@ interface EditarUsuarioFormProps{
 }
 
 export const EditarUsuarioForm = ({ rowData, onSave }:EditarUsuarioFormProps) => {
-
+    console.log('SERVICIO ASIGNADO:', rowData.serv_asignado)
     const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Guardia']);
     const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
 
-    const { register, handleSubmit, reset, formState: { errors }, } = useForm({
+    const { register, handleSubmit, reset,setValue, formState: { errors }, } = useForm({
         defaultValues: {
             ...rowData,
             password: undefined,
@@ -61,6 +61,9 @@ useEffect(() => {
   }, []);
 
 
+useEffect(() => { 
+    setValue('serv_asignado', rowData.serv_asignado) }
+    , [rowData.serv_asignado,catalogoServicios]);
 
 const onSubmit = (data:EditarUsuarioFormData) => {
     // Aquí deberías actualizar los datos en tu estado o hacer una llamada API para guardar los cambios

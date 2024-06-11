@@ -48,6 +48,7 @@ export const UsuariosTable = () => {
   }
 
   const handleDeleteRow = (row: DataRow) => {
+    console.log('Elegi inactivar: ',{ ...row, activo: !row.activo})
     mutationUsuario.mutate({ ...row, activo: !row.activo});
   };
 
