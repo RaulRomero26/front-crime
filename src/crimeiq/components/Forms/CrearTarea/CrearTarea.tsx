@@ -74,10 +74,14 @@ export const CrearTarea = () => {
   const tareaMutation = useCrearTarea();
   const onSubmit = (data: any) => {
     console.log("Datos del formulario:", data);
+    data.recurrente=esRecurrente;
     data.estado="Pendiente";
+    data.activa=true;
+    console.log('Se le hablo a la mutacion');
     tareaMutation.mutate(data);
   }
 
+  console.log(errors);
 
   return (
     <>
@@ -86,13 +90,40 @@ export const CrearTarea = () => {
           <div className="col-md-8 ">
             <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
               <div className="form-group">
+                <label className="form-label" htmlFor="recurrente">¿Es una tarea recurrente?</label>
+                <input
+                  type="checkbox"
+                  id="recurrente"
+                  onChange={() => setEsRecurrente(!esRecurrente)}
+                />
+              </div>
+
+              {esRecurrente && (
+                <div className="form-group">
+                  <label className="form-label">Días de la semana:</label>
+                  {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day) => (
+                    <div key={day}  className="me-2" style={{ display: 'inline-block', width: 'auto' }}>
+                      <input
+                        className="form-check-input"
+                       
+                        type="checkbox"
+                        id={`${day}`}
+                        {...register(`dias_semana.${day}`)}
+                      />
+                      <label htmlFor={`${day}`}>{day}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className={`form-group ${!esRecurrente ? '' : 'd-none'}`}>
                 <label  className="form-label" htmlFor="usu_asignado">Usuario:</label>
                 <select
                     className="form-control"
                     id="usu_asignado"
                     
                     {...register("usu_asignado", {
-                        required: "El usuario es requerido",
+                        required: !esRecurrente ? "El usuario es requerido" : false
                     })}
                 >
                     <option value="">Seleccionar usuario</option>
@@ -139,21 +170,30 @@ export const CrearTarea = () => {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="fecha_hora_vencimiento">Fecha Hora Vencimiento de la tarea:</label>
+                <label className="form-label" htmlFor="observaciones">Observaciones de la tarea:</label>
                 <input
                     className="form-control"
-                    type="date"
-                    id="fecha_hora_vencimiento"
-                    {...register("fecha_hora_vencimiento", {
-                    required: "El fecha_hora_vencimiento es requerido",
-                    validate: value => {
-                        const selectedDate = new Date(value);
-                        const currentDate = new Date();
-                        currentDate.setHours(0, 0, 0, 0); // Aseguramos que la comparación sea solo por la fecha, no la hora
-                        return selectedDate >= currentDate || "La fecha no puede ser anterior al día de hoy";
-                    }
-                    })}
+                    type="text"
+                    id="observaciones"
+                    {...register("observaciones")}
                 />
+              </div>
+              <div className={`form-group ${!esRecurrente ? '' : 'd-none'}`}>
+                <label className="form-label" htmlFor="fecha_hora_vencimiento">Fecha Hora Vencimiento de la tarea:</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  id="fecha_hora_vencimiento"
+                  {...register("fecha_hora_vencimiento", {
+                      required: !esRecurrente ? "El fecha_hora_vencimiento es requerido" : false,
+                      validate: !esRecurrente ? value => {
+                          const selectedDate = new Date(value);
+                          const currentDate = new Date();
+                          currentDate.setHours(0, 0, 0, 0); // Aseguramos que la comparación sea solo por la fecha, no la hora
+                          return selectedDate >= currentDate || "La fecha no puede ser anterior al día de hoy";
+                      } : undefined
+                  })}
+              />
                 <ErrorMessage
                     errors={errors}
                     name="fecha_hora_vencimiento"
@@ -202,33 +242,6 @@ export const CrearTarea = () => {
                     render={({ message }) => <p className="invalid-form">{message}</p>}
                 />
               </div>
-
-              <div className="form-group">
-                <label className="form-label" htmlFor="recurrente">¿Es una tarea recurrente?</label>
-                <input
-                  type="checkbox"
-                  id="recurrente"
-                  onChange={() => setEsRecurrente(!esRecurrente)}
-                />
-              </div>
-
-              {esRecurrente && (
-                <div className="form-group">
-                  <label className="form-label">Días de la semana:</label>
-                  {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day) => (
-                    <div key={day}  className="me-2" style={{ display: 'inline-block', width: 'auto' }}>
-                      <input
-                        className="form-check-input"
-                       
-                        type="checkbox"
-                        id={`${day}`}
-                        {...register(`dias_semana.${day}`)}
-                      />
-                      <label htmlFor={`${day}`}>{day}</label>
-                    </div>
-                  ))}
-                </div>
-              )}
 
               <button className="btn btn-success my-3" type="submit">CREAR</button>
             </form>
