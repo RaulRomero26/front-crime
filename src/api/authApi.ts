@@ -25,7 +25,7 @@ export const authApi = axios.create({
       response => response,
       error => {
         if (error.response.status === 401) {
-          window.location.href = '/scanner';
+          window.location.href = '/';
         }
       });
   
