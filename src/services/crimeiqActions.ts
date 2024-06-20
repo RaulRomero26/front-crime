@@ -68,6 +68,22 @@ export const useGetAllTareas = async ({ perPage }:any) => {
     return {};
   }
 
+
+  }
+export const useGetAllTareasRecurrentes = async ({ perPage }:any) => {
+
+    try {
+      console.log('ACCION DATOS LIMIT:',perPage)
+      const params = new URLSearchParams();
+      params.append('page',perPage.toString())
+      const {data} = await crimeiqApi.get(`/get_recurrent_tasks`,{params});
+      console.log('DATA DE ACTIONS',data)
+      return data;
+    } catch (error) {
+      console.log(error)
+      return {};
+    }
+
 };
 
 export const crearTarea = async (
@@ -89,6 +105,24 @@ export const crearTarea = async (
 
   return undefined; // Add return statement here
 };
+
+export const updateTarea = async (formdata: any) => {
+  try {
+    const { data } = await crimeiqApi.post("/inactivar_tarea_recurrente", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: formdata,
+    });
+    return data;
+  } catch (error) {
+    console.error("Error de red:", error);
+  }
+
+  return undefined; // Add return statement here
+
+}
 
 export const useGetAllReportesIncidencia = async ({ perPage }:any) => {
 

@@ -1,4 +1,4 @@
-import { CrearTarea, TareasTable } from "../../components";
+import { CrearTarea, TareasRecurrentesTable, TareasTable } from "../../components";
 
 export const TareasPage = () => {
   return (
@@ -45,6 +45,20 @@ export const TareasPage = () => {
                   TAREAS ASIGNADAS
                 </button>
               </li>
+              <li className="nav-item" role="presentation">
+                <button
+                  className="nav-link"
+                  id="recurrentes-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#recurrentes-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="recurrentes-tab-pane"
+                  aria-selected="false"
+                >
+                  TAREAS RECURRENTES
+                </button>
+              </li>
             </ul>
             <div className="tab-content" id="myTabContent">
               <div
@@ -64,6 +78,15 @@ export const TareasPage = () => {
                 tabIndex={0}
               >
                 <TareasTable/>
+              </div>
+              <div
+                className="tab-pane fade"
+                id="recurrentes-tab-pane"
+                role="tabpanel"
+                aria-labelledby="recurrentes-tab"
+                tabIndex={0}
+              >
+                <TareasRecurrentesTable/>
               </div>
             </div>
           </div>
