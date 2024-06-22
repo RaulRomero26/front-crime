@@ -1,4 +1,4 @@
-import { ReportesAlertaTable, ReportesIncidenciaTable } from "../../components";
+import { ReportesAlertaTable, ReportesIncidenciaTable, ReportesIncidenteTable } from "../../components";
 
 export const ReportesIncidenciaPage = () => {
   return (
@@ -45,6 +45,20 @@ export const ReportesIncidenciaPage = () => {
                   REPORTES ALERTAS
                 </button>
               </li>
+              <li className="nav-item" role="presentation">
+                <button
+                  className="nav-link"
+                  id="repoinci-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#repoinci-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="repoinci-tab-pane"
+                  aria-selected="true"
+                >
+                  REPORTES INCIDENTES
+                </button>
+              </li>
             </ul>
           </div>
             <div className="tab-content" id="myTabContent">
@@ -66,6 +80,17 @@ export const ReportesIncidenciaPage = () => {
                 tabIndex={0}
               >
                <ReportesAlertaTable/>
+              </div>
+            </div>
+            <div className="tab-content" id="reportesIncidentes">
+              <div
+                className="tab-pane fade"
+                id="repoinci-tab-pane"
+                role="tabpanel"
+                aria-labelledby="repoinci-tab"
+                tabIndex={0}
+              >
+               <ReportesIncidenteTable/>
               </div>
             </div>
           </div>
