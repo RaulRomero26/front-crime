@@ -122,7 +122,7 @@ const subHeaderComponent = useMemo(() => {
 
     </>
   );
-}, [filterTextPuntoVigilancia, filterTextUbicacion, filterTextObservaciones, filterTextNombreArchivo, filterTextFechaEscaneo, filterTextHoraEscaneo, filterTextUsuario, resetPaginationToggle]);
+}, [filterTextPuntoVigilancia, filterTextUbicacion, filterTextObservaciones, filterTextNombreArchivo, filterTextFechaEscaneo, filterTextHoraEscaneo, filterTextUsuario, filterTextServAsignado, resetPaginationToggle]);
 
   const columns: TableColumn<DataRow>[] = [
     {
