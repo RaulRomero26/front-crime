@@ -8,7 +8,7 @@ import { crimeiqApi } from "../../../../api/crimeiqApi";
 
 export const CrearUsuario = () => {
 
-  const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Guardia']);
+  const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Cliente','Guardia']);
   const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
 
   const {

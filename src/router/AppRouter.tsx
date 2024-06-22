@@ -43,22 +43,18 @@ export const AppRouter = () => {
         En si se tiene un router que redirige a otro router
         Asi se logan manejar las rutas privadas y publicas
       */}
-        <Routes>
-            {
-             ( status === 'not-authenticated' )  
-              ? ( 
-              <>
-                  <Route path="/auth/*" element={ <LoginPage /> } />
-                  <Route path="/*" element={ <Navigate to="/auth/login" /> } />
-              </>
-              )
-              : (
-                <>
-                    <Route path="/scanner/*" element={ <CustomNavbar /> } />
-                    <Route path="/*" element={ <Navigate to="/scanner" /> } />
-                </>
-            )
-          } 
+       <Routes>
+          {status === 'not-authenticated' ? (
+            <>
+              <Route path="/auth/*" element={<LoginPage />} />
+              <Route path="/*" element={<Navigate to="/auth/login" replace />} />
+            </>
+          ) : (
+            <>
+              <Route path="/scanner/*" element={<CustomNavbar />} />
+              <Route path="*" element={<Navigate to="/scanner" replace />} />
+            </>
+          )}
         </Routes>
     
     </>
