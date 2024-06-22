@@ -5,13 +5,13 @@ import { useGetAllReportesIncidencia } from "../../hooks/ReportesIncidencia/useG
 
 
 interface DataRow {
-  puntoVigilancia: string;
+  nombre: string;
   ubicacion: string;
   observaciones: string;
   nombreArchivo: string;
   fechaEscaneo: string;
   horaEscaneo: string;
-  usuario: string;
+  Nom_reportante: string;
 }
 
 interface SubHeaderFilter {
@@ -38,7 +38,7 @@ export const ReportesIncidenciaTable = () => {
   }
 
   const filters: Record<string, SubHeaderFilter> = {
-    puntoVigilancia: {
+    nombre: {
       value: filterTextPuntoVigilancia,
       setter: setFilterTextPuntoVigilancia,
       component: TextFilterComponent,
@@ -68,7 +68,7 @@ export const ReportesIncidenciaTable = () => {
         setter: setFilterTextHoraEscaneo,
         component: TextFilterComponent,
       },     
-    usuario: {
+    Nom_reportante: {
       value: filterTextUsuario,
       setter: setFilterTextUsuario,
       component: TextFilterComponent,
@@ -120,7 +120,7 @@ const subHeaderComponent = useMemo(() => {
   const columns: TableColumn<DataRow>[] = [
     {
       name: 'Punto de Vigilancia',
-      selector: (row: DataRow) => row.puntoVigilancia,
+      selector: (row: DataRow) => row.nombre,
     },
     {
       name: 'Ubicación',
@@ -144,7 +144,7 @@ const subHeaderComponent = useMemo(() => {
     },
     {
       name: 'Usuario',
-      selector: (row: DataRow) => row.usuario,
+      selector: (row: DataRow) => row.Nom_reportante,
     }
   ];
 
