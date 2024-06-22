@@ -133,7 +133,7 @@ const subHeaderComponent = useMemo(() => {
       name: 'Descargar Imagen',
       selector: (row: DataRow) => row.ruta_imagen_qr,
       cell: (row: DataRow) => (
-        <a href={row.ruta_imagen_qr} download>
+        <a href={row.ruta_imagen_qr} download target="_blank">
           Descargar
         </a>
       ),
