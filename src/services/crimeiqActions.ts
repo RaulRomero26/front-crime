@@ -224,7 +224,9 @@ export const updateUsuario = async (formdata: any) => {
     formData.append("Ap_paterno", formdata.Ap_paterno);
     formData.append("Ap_materno", formdata.Ap_materno);
     formData.append("username", formdata.username);
-    formData.append("password", formdata.password);
+    if (formdata.password)
+      formData.append("password", formdata.password);
+
     formData.append("No_tel", formdata.No_tel);
     formData.append("Tipo_sangre", formdata.Tipo_sangre);
     formData.append("Dir", formdata.Dir);

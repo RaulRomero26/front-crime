@@ -48,8 +48,9 @@ export const UsuariosTable = () => {
   }
 
   const handleDeleteRow = (row: DataRow) => {
-    console.log('Elegi inactivar: ',{ ...row, activo: !row.activo})
-    mutationUsuario.mutate({ ...row, activo: !row.activo});
+    const { password, ...updatedRow } = row;
+    console.log('Elegi inactivar: ', { ...updatedRow, activo: !row.activo });
+    mutationUsuario.mutate({ ...updatedRow, activo: !row.activo });
   };
 
   const filters: Record<string, SubHeaderFilter> = {
