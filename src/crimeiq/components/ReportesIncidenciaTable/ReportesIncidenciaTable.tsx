@@ -12,6 +12,7 @@ interface DataRow {
   fechaEscaneo: string;
   horaEscaneo: string;
   Nom_reportante: string;
+  serv_asignado: string;
 }
 
 interface SubHeaderFilter {
@@ -28,6 +29,7 @@ export const ReportesIncidenciaTable = () => {
   const [filterTextFechaEscaneo, setFilterTextFechaEscaneo] = useState('');
   const [filterTextHoraEscaneo, setFilterTextHoraEscaneo] = useState('');
   const [filterTextUsuario, setFilterTextUsuario] = useState('');
+  const [filterTextServAsignado, setFilterTextServAsignado] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
 
@@ -72,7 +74,12 @@ export const ReportesIncidenciaTable = () => {
       value: filterTextUsuario,
       setter: setFilterTextUsuario,
       component: TextFilterComponent,
-    }       
+    },   
+    serv_asignado: {
+      value: filterTextServAsignado,
+      setter: setFilterTextServAsignado,
+      component: TextFilterComponent,
+    }    
   };
   
   let filteredItems: DataRow[] = [];
@@ -145,6 +152,10 @@ const subHeaderComponent = useMemo(() => {
     {
       name: 'Usuario',
       selector: (row: DataRow) => row.Nom_reportante,
+    },
+    {
+      name: 'Servicio Asignado',
+      selector: (row: DataRow) => row.serv_asignado,
     }
   ];
 
