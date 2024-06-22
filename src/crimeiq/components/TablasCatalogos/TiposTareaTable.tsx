@@ -101,6 +101,14 @@ const subHeaderComponent = useMemo(() => {
     {
       name: 'Estado',
       selector: (row: DataRow) => (row.activo) ? 'Activo' : 'Inactivo',
+      cell: (row) => (
+        <span style={{ 
+            fontWeight: 'bold', 
+            color: row.activo ? 'green' : 'red',
+            fontSize: '18px'
+        }}>
+            {row.activo ? 'Activo' : 'Inactivo'}
+        </span>)
     },
     {
       name: 'Acciones',

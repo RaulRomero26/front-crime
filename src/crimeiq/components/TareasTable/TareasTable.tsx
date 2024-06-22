@@ -1,6 +1,6 @@
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { TextFilterComponent } from "../Filters/Filters";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useGetAllTareas } from "../../hooks/Tareas/useGetAllTareas";
 
 
@@ -27,13 +27,18 @@ export const TareasTable = () => {
   const [filterTextServicio, setFilterTextServicio] = useState('');
   const [filterTextUsuarioAsignado, setFilterTextUsuarioAsignado] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+  const [refreshKey, _setRefreshKey] = useState(0);
 
 
-  const { isLoading, tareas, isFetching } = useGetAllTareas({perPageReq: 1000});
+  const { isLoading, tareas, isFetching,handleRefresh } = useGetAllTareas({perPageReq: 1000});
 
   if(!isFetching && !isLoading) {
     console.log(tareas.data);//Asi accedemos a la data que nos regresa el endpoint
   }
+
+  const handleRefreshButtonClick = useCallback(() => {
+    handleRefresh();
+  }, [handleRefresh]);
 
   const filters: Record<string, SubHeaderFilter> = {
     titulo: {
@@ -126,6 +131,15 @@ const subHeaderComponent = useMemo(() => {
     {
       name: 'Estado',
       selector: (row: DataRow) => row.estado,
+      cell: (row) => (
+        <span style={{ 
+            fontWeight: 'bold', 
+            color: row.estado =='Pendiente' ? 'red' : 'green',
+            fontSize: '18px'
+        }}>
+            {row.estado}
+        </span>
+    )
     },
     {
       name: 'No. Servicio',
@@ -139,15 +153,26 @@ const subHeaderComponent = useMemo(() => {
 
   return (
     (!isFetching && !isLoading) && (
-    
-        <DataTable
-        title="Tareas Asignadas" 
-          columns={columns} 
-          data={filteredItems} 
-          pagination
-          subHeader
-          subHeaderComponent={subHeaderComponent}
-        />
+      <div className="row">
+         <div className="col-md-12 my-2">
+            <button className="btn btn-primary" onClick={handleRefreshButtonClick}>
+              Actualizar
+            </button>
+          </div>
+          <div className="col">
+          <DataTable
+            title="Tareas Asignadas" 
+              columns={columns} 
+              data={filteredItems} 
+              pagination
+              subHeader
+              subHeaderComponent={subHeaderComponent}
+              key={`table-refresh-${refreshKey}`}
+            />
+          </div>
+      </div>
+     
+        
      
       )
     ); 

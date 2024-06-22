@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, } from '@tanstack/react-query'
 import { crimeiqActions } from '../../../services/'
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ export const useGetAllTareas = ({perPageReq}:GetAllTareasProps) => {
     const [page, setPage] = useState(1);
     const [perPage,_setPerPage] = useState(perPageReq)
 
-    const { isLoading, isError, error, data: tareas = [], isFetching} = useQuery({
+    const { isLoading, isError, error, data: tareas = [], isFetching,refetch} = useQuery({
         queryKey: ['tareas',{page,perPage}],
         queryFn: () => crimeiqActions.useGetAllTareas({page,perPage}),
         staleTime: 1000 * 60 * 60,
@@ -26,6 +26,10 @@ export const useGetAllTareas = ({perPageReq}:GetAllTareasProps) => {
     const prevPage = () => {
         if(page > 1) setPage(page -1);
     }
+
+    const handleRefresh = () => {
+        refetch();
+    };
  
     return {
         error,
@@ -35,6 +39,7 @@ export const useGetAllTareas = ({perPageReq}:GetAllTareasProps) => {
         tareas,
         page,
         nextPage,
-        prevPage
+        prevPage,
+        handleRefresh
     }
 }
