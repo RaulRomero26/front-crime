@@ -8,8 +8,11 @@ import { crimeiqApi } from "../../../../api/crimeiqApi";
 
 export const CrearUsuario = () => {
 
-  const [catalogoRoles, _setCatalogoRoles] = useState<any[]>(['Administrador','Cliente','Guardia']);
+  const [catalogoRoles, setCatalogoRoles] = useState<any[]>([]);
   const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
+
+
+
 
   const {
     register,
@@ -39,7 +42,26 @@ export const CrearUsuario = () => {
     getCatalogoServicios();
   }, []);
 
+  useEffect(() => {
+    const getCatalogoRoles = async () => {
+      try {
+        const params = new URLSearchParams();
+        params.append("catalogo", "roles-usuarios");
+        params.append("page", "1");
+        params.append("perPage", "1000");
+        const response = await crimeiqApi.get("/catalogo", { params });
 
+        console.log("Catalogo de usuarios:", response.data);
+        setCatalogoRoles(response.data.data.map((rol: any) => ({ rol: rol.role, id: rol._id.$oid })));
+        console.log(catalogoServicios);
+      } catch (error) {
+        console.log("Error al obtener el catalogo de servicios:", error);
+      }
+    }
+
+    getCatalogoRoles();
+    
+  },[])
 
   const usuarioMutation = useCrearUsuario();
   const onSubmit = (data: any) => {
@@ -66,7 +88,7 @@ export const CrearUsuario = () => {
                 >
                     <option value="">Seleccionar un rol</option>
                     {catalogoRoles.map((rol) => (
-                      <option key={rol} value={rol}>{rol}</option>
+                      <option key={rol.id} value={rol.rol}>{rol.rol}</option>
                     ))}
                 </select>
                 <ErrorMessage
