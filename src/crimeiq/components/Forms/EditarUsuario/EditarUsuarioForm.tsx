@@ -28,7 +28,7 @@ interface EditarUsuarioFormProps{
 }
 
 export const EditarUsuarioForm = ({ rowData, onSave }:EditarUsuarioFormProps) => {
-    console.log('SERVICIO ASIGNADO:', rowData.serv_asignado)
+    console.log('ROL:', rowData.role);
     const [catalogoRoles, setCatalogoRoles] = useState<any[]>([]);
     const [catalogoServicios, setCatalogoServicios] = useState<any[]>([]);
 
@@ -85,6 +85,9 @@ useEffect(() => {
 useEffect(() => { 
     setValue('serv_asignado', rowData.serv_asignado) }
     , [rowData.serv_asignado,catalogoServicios]);
+useEffect(() => { 
+    setValue('role', rowData.role) }
+    , [rowData.role,catalogoRoles]);
 
 const onSubmit = (data:EditarUsuarioFormData) => {
     // Aquí deberías actualizar los datos en tu estado o hacer una llamada API para guardar los cambios
@@ -117,7 +120,6 @@ return (
             <select
                 className="form-control"
                 id="role"
-                value={rowData.role}
                 {...register("role", {
                     required: "El rol es requerido",
                 })}
@@ -252,7 +254,7 @@ return (
                 type="text"
                 id="Dir"
                 {...register("Dir", {
-                    required: "El Telefono es requerido",
+                    required: "La direccion es requerida",
                 })}
                 />
             <ErrorMessage
@@ -267,7 +269,6 @@ return (
         <select
             className="form-control"
             id="serv_asignado"
-            
             {...register("serv_asignado", {
                 required: "El servicio es requerido",
             })}
